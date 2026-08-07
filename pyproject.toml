@@ -9,7 +9,7 @@ description = "Nexus Exchange Protocol (NXP): Production-grade Agent-to-Agent (A
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
-authors = [{ name = "Nexus Exchange Protocol Contributors", email = "core@nxp.dev" }]
+authors = [{ name = "Saranraj Nambusubramaniyan", email = "13406046+Saran-nns@users.noreply.github.com" }]
 keywords = [
   "nxp",
   "mcp",
@@ -25,7 +25,7 @@ keywords = [
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
+  "License :: Free To Use But Restricted",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
@@ -91,10 +91,10 @@ dev = [
 nxp = "nxp.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/nxp-protocol/nxp"
-Documentation = "https://nxp.dev"
-Repository = "https://github.com/nxp-protocol/nxp"
-"Bug Tracker" = "https://github.com/nxp-protocol/nxp/issues"
+Homepage = "https://github.com/Saran-nns/nxp"
+Documentation = "https://github.com/Saran-nns/nxp#readme"
+Repository = "https://github.com/Saran-nns/nxp"
+"Bug Tracker" = "https://github.com/Saran-nns/nxp/issues"
 
 [tool.hatch.build.targets.wheel]
 sources = ["src"]
