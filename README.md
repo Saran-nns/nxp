@@ -4,7 +4,9 @@
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 
-**Nexus Exchange Protocol (NXP)** is a framework for building and running autonomous agents and multi-agent swarms. It covers both ends of that problem: a compact binary wire protocol, transports, and authentication for how agents talk to each other, and a durable workflow/resilience layer for how a single agent (or a swarm of them) executes reliably. NXP is its own protocol — it borrows the `.well-known/agent-card.json` discovery convention from Google's Agent2Agent (A2A) Protocol for its HTTP transport, but is not an implementation of A2A, and uses its own wire format, handshake, and per-frame authentication everywhere else.
+**Nexus Exchange Protocol (NXP)** is a low-overhead, zero-trust protocol and framework for autonomous agent swarms — the layer that lets specialized agents talk to each other and execute reliably without legacy web-protocol overhead getting in the way.
+
+It exists because that overhead is real: modern specialized AI tools execute in microseconds, but framing a call as JSON text and authenticating it through a central security gateway can cost 10–50× the actual compute time per call — for a swarm chaining 50 internal calls to solve one task, that's over 100ms of pure administrative waiting before any real work happens. NXP replaces that stack with a compact binary wire format, a per-frame zero-trust handshake that needs no external auth-server round-trip, and — above the wire layer — the durable orchestration and resilience primitives a single agent or a whole swarm needs to actually run in production.
 
 Every number in this README is a real, reproducible measurement — see [Benchmarks](#benchmarks) for how each one was produced.
 
