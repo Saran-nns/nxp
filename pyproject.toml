@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "nxp"
+name = "nexes"
 version = "1.0.0"
 description = "Nexus Exchange Protocol (NXP): a zero-trust protocol and framework for agent-to-agent communication (not an implementation of Google's A2A Protocol)"
 readme = "README.md"

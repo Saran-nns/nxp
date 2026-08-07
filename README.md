@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/nxp/"><img src="https://img.shields.io/pypi/v/nxp.svg" alt="PyPI Version"/></a>
-  <a href="https://pypi.org/project/nxp/"><img src="https://img.shields.io/pypi/dm/nxp.svg" alt="PyPI Downloads"/></a>
+  <a href="https://pypi.org/project/nexes/"><img src="https://img.shields.io/pypi/v/nexes.svg" alt="PyPI Version"/></a>
+  <a href="https://pypi.org/project/nexes/"><img src="https://img.shields.io/pypi/dm/nexes.svg" alt="PyPI Downloads"/></a>
   <a href="https://polyformproject.org/licenses/noncommercial/1.0.0"><img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg" alt="License"/></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python Version"/></a>
 </p>
@@ -45,14 +45,14 @@ Traditional agent frameworks rely on legacy REST or JSON-RPC protocols where eve
 ## Installation
 
 ```bash
-pip install nxp
+pip install nexes
 ```
 
 Optional transports and features are extras:
 
 ```bash
-pip install "nxp[grpc]"   # gRPC transport
-pip install "nxp[all]"    # everything
+pip install "nexes[grpc]"   # gRPC transport
+pip install "nexes[all]"    # everything
 ```
 
 Base install only requires `fastapi`, `uvicorn`, `httpx`, `pydantic`, `anyio`, `typer`, `rich`, `websockets`, `msgpack`, and `cryptography` — `import nxp` does not require any of the extras. HMAC bearer API-key auth (`nxp.security.auth`) works out of the box; it does not need the `auth` extra, which currently declares dependencies the implementation doesn't use.
