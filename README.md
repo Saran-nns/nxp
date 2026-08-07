@@ -21,7 +21,7 @@ Traditional agent frameworks rely on legacy REST or JSON-RPC protocols where eve
 
 ---
 
-## Why NXP? (The Big Picture)
+## Why NXP?
 
 | Dimension | Traditional Agent Stacks (REST / JSON-RPC) | Nexus Exchange Protocol (NXP) |
 | :--- | :--- | :--- |
