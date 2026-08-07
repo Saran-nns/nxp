@@ -6,7 +6,7 @@
 
 **Nexus Exchange Protocol (NXP)** is a low-overhead, zero-trust protocol and framework for autonomous agent swarms — the layer that lets specialized agents talk to each other and execute reliably without legacy web-protocol overhead getting in the way.
 
-It exists because that overhead is real: modern specialized AI tools execute in microseconds, but framing a call as JSON text and authenticating it through a central security gateway can cost 10–50× the actual compute time per call — for a swarm chaining 50 internal calls to solve one task, that's over 100ms of pure administrative waiting before any real work happens. NXP replaces that stack with a compact binary wire format, a per-frame zero-trust handshake that needs no external auth-server round-trip, and — above the wire layer — the durable orchestration and resilience primitives a single agent or a whole swarm needs to actually run in production.
+It exists because that overhead is real: modern specialized AI tools execute in microseconds, but framing a call as JSON text and authenticating it through a central security gateway can cost 10–50× the actual compute time per call — for a swarm chaining 50 internal calls to solve one task, that's over 100ms of pure administrative waiting before any real work happens. NXP replaces that stack with a compact Binary Frame Protocol (BFP), a per-frame zero-trust handshake that needs no external auth-server round-trip, and — above the wire layer — the durable orchestration and resilience primitives a single agent or a whole swarm needs to actually run in production.
 
 Every number in this README is a real, reproducible measurement — see [Benchmarks](#benchmarks) for how each one was produced.
 
@@ -14,7 +14,7 @@ Every number in this README is a real, reproducible measurement — see [Benchma
 
 ## Key Features
 
-- **Compact binary wire protocol (BFP).** Fixed-overhead binary frames instead of verbose JSON-RPC, served over HTTP, WebSocket, gRPC, or stdio MCP from the same agent definition.
+- **Binary Frame Protocol (BFP).** Fixed-overhead binary frames instead of verbose JSON-RPC, served over HTTP, WebSocket, gRPC, or stdio MCP from the same agent definition.
 - **Authenticated by default.** An HMAC connection handshake plus a real X25519 session-key exchange, then a 4-byte SDMT token authenticating every subsequent frame — see [Two Identity Systems](#two-identity-systems) for exactly what secures what.
 - **Durable, resilient orchestration.** Checkpointed `StateGraph` workflows, a real client-side circuit breaker, and a token-bucket sandbox for per-caller rate limiting.
 - **Agent discovery with dedup.** Agent Card manifests with a Blake2b hash-and-`CARD_HIT` handshake to skip retransmitting an unchanged card.
