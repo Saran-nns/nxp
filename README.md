@@ -4,7 +4,7 @@
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 
-**Nexus Exchange Protocol (NXP)** is a framework for building, serving, and orchestrating agent-to-agent communication between autonomous agents: a compact binary wire protocol (BFP), HTTP/WebSocket/gRPC transports, an authenticated connection handshake, durable workflow orchestration, and a per-caller rate-limiting sandbox. NXP is its own protocol, not an implementation of Google's Agent2Agent (A2A) Protocol — it borrows A2A's `.well-known/agent-card.json` discovery convention for its HTTP transport, but uses its own wire format, handshake, and per-frame authentication everywhere else.
+**Nexus Exchange Protocol (NXP)** is a framework for building and running autonomous agents and multi-agent swarms. It covers both ends of that problem: a compact binary wire protocol, transports, and authentication for how agents talk to each other, and a durable workflow/resilience layer for how a single agent (or a swarm of them) executes reliably. NXP is its own protocol — it borrows the `.well-known/agent-card.json` discovery convention from Google's Agent2Agent (A2A) Protocol for its HTTP transport, but is not an implementation of A2A, and uses its own wire format, handshake, and per-frame authentication everywhere else.
 
 Every number in this README is a real, reproducible measurement — see [Benchmarks](#benchmarks) for how each one was produced.
 
@@ -12,14 +12,10 @@ Every number in this README is a real, reproducible measurement — see [Benchma
 
 ## Key Features
 
-- **Compact binary wire framing (BFP).** Fixed-overhead binary frames (1-byte opcode + 3-byte sequence, then a type-specific body) instead of verbose JSON-RPC, with a MessagePack-encoded payload.
-- **Authenticated connection handshake.** `NXPClient`/`NXPTransport` connections are authenticated via an HMAC-SHA256 `did:nxp:<name>:<fingerprint>` handshake, followed by a real X25519 ECDH key exchange to derive a per-connection session key. A separate, standalone `Ed25519Identity` (`did:key:z6M...`) module is available for self-sovereign asymmetric signing where a shared secret isn't an option — see [Two Identity Systems](#two-identity-systems) below for which one secures what.
-- **Per-frame authentication.** Once connected, every `CALL`/`TOOL` frame carries a 4-byte Sequence-Derived Micro-Token (SDMT) derived from the session key, checked against a sliding-window replay defense.
-- **Tool sandboxing & rate limiting.** A real token-bucket `ToolSandbox`, keyed per caller identity, bounds per-caller throughput.
-- **Durable `StateGraph` workflows.** Checkpointed DAG-based workflow execution for multi-step agent pipelines.
-- **Client-side circuit breaker.** A real `CircuitBreaker` FSM (`CLOSED` → `OPEN` → `HALF_OPEN`) wired into `NXPClient.call()`: once a node's error rate crosses a threshold, further calls fail fast — rejected locally, no network attempt — until a cooldown elapses and trial probes confirm recovery. This protects one client from hammering one struggling node; it does not (yet) reroute work to a healthy replica.
-- **Multi-transport serving.** Serve the same agent definition over HTTP (REST, with Agent Card discovery at `.well-known/agent-card.json`), WebSocket (BFP), gRPC, and a self-contained stdio MCP transport (a hand-rolled JSON-RPC 2.0 implementation — it does not depend on the third-party `fastmcp` package).
-- **Agent Card discovery with dedup.** Agents publish a JSON Agent Card manifest; a Blake2b hash-and-`CARD_HIT` handshake skips retransmitting it when a peer's cached copy is still current.
+- **Compact binary wire protocol (BFP).** Fixed-overhead binary frames instead of verbose JSON-RPC, served over HTTP, WebSocket, gRPC, or stdio MCP from the same agent definition.
+- **Authenticated by default.** An HMAC connection handshake plus a real X25519 session-key exchange, then a 4-byte SDMT token authenticating every subsequent frame — see [Two Identity Systems](#two-identity-systems) for exactly what secures what.
+- **Durable, resilient orchestration.** Checkpointed `StateGraph` workflows, a real client-side circuit breaker, and a token-bucket sandbox for per-caller rate limiting.
+- **Agent discovery with dedup.** Agent Card manifests with a Blake2b hash-and-`CARD_HIT` handshake to skip retransmitting an unchanged card.
 
 ---
 
