@@ -4,7 +4,7 @@
 [![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
 
-**Nexus Exchange Protocol (NXP)** is an Agent-to-Agent (A2A) framework for building, serving, and orchestrating multi-agent systems: a compact binary wire protocol (BFP), HTTP/WebSocket/gRPC transports, an authenticated connection handshake, durable workflow orchestration, and a per-caller rate-limiting sandbox.
+**Nexus Exchange Protocol (NXP)** is a framework for building, serving, and orchestrating agent-to-agent communication between autonomous agents: a compact binary wire protocol (BFP), HTTP/WebSocket/gRPC transports, an authenticated connection handshake, durable workflow orchestration, and a per-caller rate-limiting sandbox. NXP is its own protocol, not an implementation of Google's Agent2Agent (A2A) Protocol — it borrows A2A's `.well-known/agent-card.json` discovery convention for its HTTP transport, but uses its own wire format, handshake, and per-frame authentication everywhere else.
 
 Every number in this README is a real, reproducible measurement — see [Benchmarks](#benchmarks) for how each one was produced.
 
@@ -18,7 +18,7 @@ Every number in this README is a real, reproducible measurement — see [Benchma
 - **Tool sandboxing & rate limiting.** A real token-bucket `ToolSandbox`, keyed per caller identity, bounds per-caller throughput.
 - **Durable `StateGraph` workflows.** Checkpointed DAG-based workflow execution for multi-step agent pipelines.
 - **Client-side circuit breaker.** A real `CircuitBreaker` FSM (`CLOSED` → `OPEN` → `HALF_OPEN`) wired into `NXPClient.call()`: once a node's error rate crosses a threshold, further calls fail fast — rejected locally, no network attempt — until a cooldown elapses and trial probes confirm recovery. This protects one client from hammering one struggling node; it does not (yet) reroute work to a healthy replica.
-- **Multi-transport serving.** Serve the same agent definition over HTTP (A2A), WebSocket (BFP), gRPC, and a self-contained stdio MCP transport (a hand-rolled JSON-RPC 2.0 implementation — it does not depend on the third-party `fastmcp` package).
+- **Multi-transport serving.** Serve the same agent definition over HTTP (REST, with Agent Card discovery at `.well-known/agent-card.json`), WebSocket (BFP), gRPC, and a self-contained stdio MCP transport (a hand-rolled JSON-RPC 2.0 implementation — it does not depend on the third-party `fastmcp` package).
 - **Agent Card discovery with dedup.** Agents publish a JSON Agent Card manifest; a Blake2b hash-and-`CARD_HIT` handshake skips retransmitting it when a peer's cached copy is still current.
 
 ---

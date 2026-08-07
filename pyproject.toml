@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "nxp"
 version = "1.0.0"
-description = "Nexus Exchange Protocol (NXP): Production-grade Agent-to-Agent (A2A) Zero-Trust Protocol & Framework"
+description = "Nexus Exchange Protocol (NXP): a zero-trust protocol and framework for agent-to-agent communication (not an implementation of Google's A2A Protocol)"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
