@@ -1,0 +1,129 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nxp"
+version = "1.0.0"
+description = "Nexus Exchange Protocol (NXP): Production-grade Agent-to-Agent (A2A) Zero-Trust Protocol & Framework"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Nexus Exchange Protocol Contributors", email = "core@nxp.dev" }]
+keywords = [
+  "nxp",
+  "mcp",
+  "a2a",
+  "grpc",
+  "agents",
+  "llm",
+  "multi-agent",
+  "internet-of-agents",
+  "agent-protocol",
+  "zero-trust",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Framework :: FastAPI",
+]
+dependencies = [
+  # HTTP server & async HTTP client
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.30.0",
+  "httpx>=0.27.0",
+  # Data validation
+  "pydantic>=2.7.0",
+  # Async compatibility
+  "anyio>=4.4.0",
+  # CLI & Rich output
+  "typer>=0.12.0",
+  "rich>=13.7.0",
+  # NXP WebSocket Protocol
+  "websockets>=12.0",
+  # BFP wire codec (msgpack body encoding)
+  "msgpack>=1.0.0",
+  # Zero-trust identity & SDMT (Ed25519, X25519, HKDF)
+  "cryptography>=42.0.0",
+]
+
+[project.optional-dependencies]
+grpc = [
+  "grpcio>=1.64.0",
+  "grpcio-tools>=1.64.0",
+  "protobuf>=5.0.0",
+]
+mcp = [
+  "fastmcp>=2.0.0",
+  "mcp>=1.0.0",
+]
+auth = [
+  "python-jose[cryptography]>=3.3.0",
+  "passlib[bcrypt]>=1.7.4",
+]
+memory = [
+  "chromadb>=0.5.0",
+  "sentence-transformers>=3.0.0",
+]
+openai = ["openai>=1.30.0"]
+langchain = ["langchain-core>=0.2.0"]
+all = [
+  "nxp[grpc,mcp,auth,memory,openai]",
+]
+dev = [
+  "pytest>=8.0.0",
+  "pytest-asyncio>=0.23.0",
+  "httpx>=0.27.0",
+  "mypy>=1.10.0",
+  "ruff>=0.4.0",
+  "hatch",
+  "build",
+]
+
+[project.scripts]
+nxp = "nxp.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/nxp-protocol/nxp"
+Documentation = "https://nxp.dev"
+Repository = "https://github.com/nxp-protocol/nxp"
+"Bug Tracker" = "https://github.com/nxp-protocol/nxp/issues"
+
+[tool.hatch.build.targets.wheel]
+sources = ["src"]
+packages = ["src/nxp"]
+
+[tool.hatch.build.targets.sdist]
+# No VCS to infer exclusions from (this checkout isn't a git repo), so hatchling's
+# default sdist would otherwise ship the whole working tree — the LaTeX book build
+# (PDFs, .aux/.log byproducts, timestamped backups), tutorial notebook/HTML/PDF, and
+# benchmark reports. Scope it to what's actually needed to build and test the package.
+include = [
+  "/src",
+  "/tests",
+  "/README.md",
+  "/LICENSE",
+  "/requirements.txt",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
