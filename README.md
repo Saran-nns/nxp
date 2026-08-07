@@ -39,11 +39,11 @@ Base install only requires `fastapi`, `uvicorn`, `httpx`, `pydantic`, `anyio`, `
 ## Quickstart
 
 ```python
-from nxp import NXPAgent, connect
+from nxp import NXPAgent
 
 agent = NXPAgent(
-    name="calculator-agent",
-    description="High-performance math agent",
+    name="utils-agent",
+    description="Small utility agent with a couple of independent skills",
     version="1.0.0",
 )
 
@@ -51,6 +51,11 @@ agent = NXPAgent(
 async def add(a: float, b: float) -> float:
     """Add two numbers."""
     return a + b
+
+@agent.skill(tags=["text"])
+async def word_count(text: str) -> int:
+    """Count words in a string."""
+    return len(text.split())
 
 if __name__ == "__main__":
     agent.run(port=8000)
@@ -65,10 +70,13 @@ from nxp import connect
 async def call_agent():
     client = connect("http://localhost:8000")
     card = await client.get_card()
-    print(f"Connected to: {card.name}")
+    print(f"Connected to: {card.name}, skills: {[s.id for s in card.skills]}")
 
     result = await client.call("add", a=42.0, b=58.0)
-    print(f"Result: {result}")  # 100.0
+    print(f"add(42, 58) = {result}")
+
+    count = await client.call("word_count", text="the quick brown fox")
+    print(f"word_count(...) = {count}")
 
 asyncio.run(call_agent())
 ```
