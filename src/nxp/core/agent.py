@@ -4,9 +4,9 @@ Core Agent class — the heart of Cognitive Agent Tool.
 Usage
 -----
     from nxp import Agent
-    from nxp.identity import Identity
-    from nxp.observe import Observability
-    from nxp.registry import Registry
+    from nxp.security.identity import Identity
+    from nxp.orchestration.observe import Observability
+    from nxp.core.registry import Registry
 
     agent = Agent(
         name="my-agent",
@@ -36,13 +36,13 @@ from __future__ import annotations
 import inspect
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional
 
-from nxp.card import AgentCard, AgentCapabilities, Provider
-from nxp.skill import RegisteredSkill
+from nxp.core.card import AgentCard, AgentCapabilities, Provider
+from nxp.core.skill import RegisteredSkill
 
 if TYPE_CHECKING:
-    from nxp.identity import Identity
-    from nxp.observe import Observability
-    from nxp.registry import Registry
+    from nxp.security.identity import Identity
+    from nxp.orchestration.observe import Observability
+    from nxp.core.registry import Registry
 
 
 class Agent:
@@ -240,7 +240,7 @@ class Agent:
     def harness(self, workspace_path: str = ".") -> "AgentHarness":
         """Get or initialize the AgentHarness wrapper for this agent."""
         if not hasattr(self, "_harness") or self._harness is None:
-            from nxp.harness import AgentHarness
+            from nxp.orchestration.harness import AgentHarness
             self._harness = AgentHarness(self, workspace_path=workspace_path)
         return self._harness
 

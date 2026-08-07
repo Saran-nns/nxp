@@ -125,7 +125,7 @@ def agent(
     Class decorator to convert a standard class into a fully featured NXP Agent.
     """
     def decorator(cls: type) -> type:
-        from nxp.agent import Agent
+        from nxp.core.agent import Agent
 
         agent_name = name or cls.__name__
         agent_desc = description or cls.__doc__ or agent_name

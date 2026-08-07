@@ -25,7 +25,7 @@ from typing import TYPE_CHECKING, Any, Dict, Optional
 from nxp.transport.base import BaseTransport
 
 if TYPE_CHECKING:
-    from nxp.agent import Agent
+    from nxp.core.agent import Agent
 
 # MCP Protocol version this transport implements
 MCP_PROTOCOL_VERSION = "2024-11-05"

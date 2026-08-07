@@ -86,7 +86,7 @@ def serve(
         console.print(f"[red] Failed to load agent:[/red] {exc}")
         raise typer.Exit(1)
 
-    from nxp.agent import Agent as CogAgent
+    from nxp.core.agent import Agent as CogAgent
 
     if not isinstance(agent, CogAgent):
         console.print(
@@ -107,7 +107,7 @@ def inspect(
     """ Inspect a remote agent's card and skills."""
 
     async def _run() -> None:
-        from nxp.client import AgentClient
+        from nxp.core.client import AgentClient
 
         client = AgentClient(url)
 
@@ -194,7 +194,7 @@ def call(
     """ Call a skill on a remote agent."""
 
     async def _run() -> None:
-        from nxp.client import AgentClient
+        from nxp.core.client import AgentClient
 
         client = AgentClient(url, api_key=api_key)
 
@@ -364,7 +364,7 @@ def registry_start(
 ) -> None:
     """ Start a standalone nxp agent registry server."""
     import uvicorn
-    from nxp.registry import create_registry_server
+    from nxp.core.registry import create_registry_server
 
     console.print(
         Panel.fit(
@@ -385,7 +385,7 @@ def registry_list(
     """ List all registered live agents."""
 
     async def _run() -> None:
-        from nxp.registry import Registry
+        from nxp.core.registry import Registry
 
         reg = Registry(url=url)
         with console.status(f"Connecting to registry at [cyan]{url}[/cyan]..."):
@@ -409,7 +409,7 @@ def registry_find(
     """ Find agents by name or tag in the registry."""
 
     async def _run() -> None:
-        from nxp.registry import Registry
+        from nxp.core.registry import Registry
 
         reg = Registry(url=url)
         tags = [tag] if tag else None

@@ -8,9 +8,9 @@ import pytest
 from httpx import AsyncClient, ASGITransport
 
 from nxp import Agent
-from nxp.identity import Identity
-from nxp.observe import Observability
-from nxp.registry import Registry, create_registry_server
+from nxp.security.identity import Identity
+from nxp.orchestration.observe import Observability
+from nxp.core.registry import Registry, create_registry_server
 
 
 # ─── Identity Tests ───────────────────────────────────────────────────────────

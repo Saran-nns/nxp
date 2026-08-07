@@ -26,17 +26,17 @@ __version__ = "1.0.0"
 __author__ = "Nexus Exchange Protocol Contributors"
 __license__ = "MIT"
 
-from nxp.agent import Agent, Agent as NXPAgent
-from nxp.client import AgentClient, AgentClient as NXPClient, connect
-from nxp.card import AgentCard, AgentCapabilities, Provider, SkillDefinition
+from nxp.core.agent import Agent, Agent as NXPAgent
+from nxp.core.client import AgentClient, AgentClient as NXPClient, connect
+from nxp.core.card import AgentCard, AgentCapabilities, Provider, SkillDefinition
 from nxp.memory.session import SessionState
-from nxp.identity import Identity
-from nxp.observe import Observability
-from nxp.registry import Registry
-from nxp.graph import StateGraph, START, END
-from nxp.loop import FeedbackLoop, ReflexiveAgent
-from nxp.harness import AgentHarness, ContextManager, ExecutionLayer, EnvironmentHarness
-from nxp.decorators import agent, tool, skill, procedure, harness
+from nxp.security.identity import Identity
+from nxp.orchestration.observe import Observability
+from nxp.core.registry import Registry
+from nxp.orchestration.graph import StateGraph, START, END
+from nxp.orchestration.loop import FeedbackLoop, ReflexiveAgent
+from nxp.orchestration.harness import AgentHarness, ContextManager, ExecutionLayer, EnvironmentHarness
+from nxp.core.decorators import agent, tool, skill, procedure, harness
 from nxp.transport.base import BaseTransport
 from nxp.transport.http import HTTPTransport
 from nxp.transport.websocket import NXPTransport as WebSocketTransport, NXPTransport

@@ -13,7 +13,7 @@ import inspect
 import typing
 from typing import Any, Callable, Dict, List, Optional, get_type_hints
 
-from nxp.card import SkillDefinition
+from nxp.core.card import SkillDefinition
 
 
 

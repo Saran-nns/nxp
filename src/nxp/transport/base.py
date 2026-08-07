@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from nxp.agent import Agent
+    from nxp.core.agent import Agent
 
 
 class BaseTransport(ABC):

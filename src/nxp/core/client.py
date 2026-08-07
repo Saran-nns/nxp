@@ -24,7 +24,7 @@ from __future__ import annotations
 import asyncio
 from typing import Any, Dict, List, Optional
 import httpx
-from nxp.card import AgentCard, SkillDefinition
+from nxp.core.card import AgentCard, SkillDefinition
 
 
 class AgentClient:

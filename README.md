@@ -8,8 +8,6 @@
 
 It exists because that overhead is real: modern specialized AI tools execute in microseconds, but framing a call as JSON text and authenticating it through a central security gateway can cost 10–50× the actual compute time per call — for a swarm chaining 50 internal calls to solve one task, that's over 100ms of pure administrative waiting before any real work happens. NXP replaces that stack with a compact Binary Frame Protocol (BFP), a per-frame zero-trust handshake that needs no external auth-server round-trip, and — above the wire layer — the durable orchestration and resilience primitives a single agent or a whole swarm needs to actually run in production.
 
-Every number in this README is a reproducible measurement — see [Benchmarks](#benchmarks).
-
 ---
 
 ## Key Features
@@ -81,7 +79,7 @@ asyncio.run(call_agent())
 
 NXP ships two distinct identity mechanisms for two distinct jobs — they are not interchangeable, and only one of them secures the live connection handshake:
 
-| | `Identity` (`nxp.identity`) | `Ed25519Identity` (`nxp.security.crypto`) |
+| | `Identity` (`nxp.security.identity`) | `Ed25519Identity` (`nxp.security.crypto`) |
 |---|---|---|
 | DID format | `did:nxp:<name>:<fingerprint>` | `did:key:z6M...` |
 | Mechanism | Shared-secret HMAC-SHA256 | Asymmetric Ed25519 keypair, no shared secret |
@@ -89,22 +87,6 @@ NXP ships two distinct identity mechanisms for two distinct jobs — they are no
 | Wired into the WebSocket handshake? | **Yes** — this is what actually authenticates a connection today | No — real and independently useful, but not (yet) part of the connection path |
 
 Per-frame authentication after the handshake uses a separate 4-byte SDMT HMAC token derived from an X25519-negotiated session key, not either DID system directly.
-
----
-
-## Benchmarks
-
-All figures below are real measurements taken against this codebase, not estimates. The benchmark scripts themselves live in this SDK's development repository rather than here; figures are cited by experiment number for traceability.
-
-| Metric | Result | Source |
-|---|---|---|
-| In-process skill dispatch | `0.06 µs` / 18.01M req/s — 1876× faster than LangChain `StructuredTool` (`104.10 µs`) | Experiment 01 |
-| BFP wire frame (skill call + reply) | `~98 µs`, 55% smaller on the wire than raw JSON | Experiment 01b |
-| Agent Card discovery (`CARD_HIT`, cache hit) | `90.60 µs`, 79% smaller than a full JSON card fetch | Experiment 01b |
-| Circuit breaker fail-fast rejection | `2.2 µs` (vs. a full network round-trip) while `OPEN` | Experiment 08 |
-| SDMT per-frame verification | `~2.86 µs` | Chapter 4 crypto benchmark |
-| X25519 session-key derivation (once per connection) | `~613 µs` | Chapter 4 crypto benchmark |
-| Real 3-agent delegation pipeline (2 MB payload) | `55.76 ms` vs. `230.65 ms` over WebSocket+JWT — 4.14× faster, 50% less wire data | Real end-to-end swarm benchmark |
 
 ---
 

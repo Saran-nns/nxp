@@ -42,7 +42,7 @@ from pydantic import BaseModel
 from nxp.transport.base import BaseTransport
 
 if TYPE_CHECKING:
-    from nxp.agent import Agent
+    from nxp.core.agent import Agent
 
 
 # ─── Request / Response Models ──────────────────────────────────────────────────

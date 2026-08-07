@@ -17,7 +17,7 @@ from nxp.transport.base import BaseTransport
 from nxp.transport import agent_pb2, agent_pb2_grpc
 
 if TYPE_CHECKING:
-    from nxp.agent import Agent
+    from nxp.core.agent import Agent
 
 logger = logging.getLogger("nxp.transport.grpc")
 

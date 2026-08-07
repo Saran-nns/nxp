@@ -12,7 +12,7 @@ With this:    every call gets a trace ID, duration, status, and structured log e
 Usage
 -----
     from nxp import Agent
-    from nxp.observe import Observability
+    from nxp import Observability
 
     agent = Agent(
         name="research-agent",
@@ -109,7 +109,7 @@ class Observability:
         self._logger = self._setup_logger()
 
     def _setup_logger(self) -> logging.Logger:
-        logger = logging.getLogger(f"nxp.observe")
+        logger = logging.getLogger("nxp.observe")
         logger.setLevel(getattr(logging, self.log_level.upper(), logging.INFO))
         logger.propagate = False
 

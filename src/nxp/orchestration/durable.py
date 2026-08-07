@@ -1,6 +1,6 @@
-# src/nxp2/durable.py
+# src/nxp/orchestration/durable.py
 """
-NXP v2 Durable DAG Workflow Engine & Event Sourcing Checkpointer
+NXP Durable DAG Workflow Engine & Event Sourcing Checkpointer
 """
 
 from __future__ import annotations

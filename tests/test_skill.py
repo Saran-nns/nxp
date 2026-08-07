@@ -6,7 +6,7 @@ from typing import Dict, List, Optional
 
 import pytest
 
-from nxp.skill import _extract_param_schema, _type_to_schema
+from nxp.core.skill import _extract_param_schema, _type_to_schema
 
 
 # ─── Type to Schema ──────────────────────────────────────────────────────────────

@@ -16,7 +16,7 @@ Usage
 
     # 2. Agents auto-register on startup:
     from nxp import Agent
-    from nxp.registry import Registry
+    from nxp.core.registry import Registry
 
     agent = Agent(
         name="research-agent",
@@ -27,7 +27,7 @@ Usage
     # → Agent registers at http://localhost:9999 and sends heartbeats every 30s
 
     # 3. Clients discover agents dynamically:
-    from nxp.registry import Registry
+    from nxp.core.registry import Registry
 
     reg = Registry(url="http://localhost:9999")
     agents = await reg.find(tags=["research"])   # → [AgentCard(...)]
@@ -55,7 +55,7 @@ except ImportError:
     JSONResponse = Any  # type: ignore
 
 
-from nxp.card import AgentCard
+from nxp.core.card import AgentCard
 
 
 # ─── Registry Client ─────────────────────────────────────────────────────────
@@ -192,7 +192,7 @@ def create_registry_server() -> FastAPI:
 
     Or programmatically:
         import uvicorn
-        from nxp.registry import create_registry_server
+        from nxp.core.registry import create_registry_server
         uvicorn.run(create_registry_server(), port=9999)
 
     Endpoints:

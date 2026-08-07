@@ -13,7 +13,7 @@ Every nxp agent gets a cryptographic identity:
 Usage
 -----
     from nxp import Agent
-    from nxp.identity import Identity
+    from nxp import Identity
 
     agent = Agent(
         name="research-agent",
@@ -28,7 +28,7 @@ Usage
     #   X-Trace-ID:   <request trace id>
 
 Verifying a response (client side):
-    from nxp.identity import Identity
+    from nxp import Identity
 
     identity = Identity(secret="my-32-char-signing-secret-key!!")
     is_valid = identity.verify(response_body_json, response_headers["X-Agent-Sig"])

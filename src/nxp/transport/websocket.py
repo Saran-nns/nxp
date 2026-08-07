@@ -10,7 +10,7 @@ Over a single, unified protocol frame format.
 Performance Design
 ------------------
 Security costs are **connection-level**, not per-call:
-  ✅ Ed25519/HMAC handshake  — once per connection
+  ✅ HMAC handshake (did:nxp) — once per connection
   ✅ DID verification         — once per connection
   ✅ Skill routing            — O(1) dict lookup per call
   ✅ Session token assignment — once per connection
@@ -41,15 +41,15 @@ import time
 from typing import TYPE_CHECKING, Any, Callable, Dict, Optional
 
 import websockets
-from nxp.protocol import NexusFrame, _JSON_SEPARATORS
-from nxp.resilience import CircuitBreaker, CircuitOpenError
+from nxp.transport.protocol import NexusFrame, _JSON_SEPARATORS
+from nxp.orchestration.resilience import CircuitBreaker, CircuitOpenError
 from nxp.security.crypto import X25519KeyExchange
 from nxp.security.replay import ReplayWindow
 from nxp.transport.base import BaseTransport
 from nxp.transport import bfp as _bfp
 
 if TYPE_CHECKING:
-    from nxp.agent import Agent
+    from nxp.core.agent import Agent
 
 logger = logging.getLogger("nxp.transport.websocket")
 
@@ -514,7 +514,7 @@ class NXPClient:
         if frame.type == "error":
             raise RuntimeError(f"NXP handshake rejected: {frame.payload.get('error')}")
 
-        from nxp.card import AgentCard
+        from nxp.core.card import AgentCard
         payload = dict(frame.payload)
 
         # ── AEL: extract BFP negotiation fields from card ────────────────────
