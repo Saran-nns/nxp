@@ -8,7 +8,7 @@
 
 It exists because that overhead is real: modern specialized AI tools execute in microseconds, but framing a call as JSON text and authenticating it through a central security gateway can cost 10–50× the actual compute time per call — for a swarm chaining 50 internal calls to solve one task, that's over 100ms of pure administrative waiting before any real work happens. NXP replaces that stack with a compact Binary Frame Protocol (BFP), a per-frame zero-trust handshake that needs no external auth-server round-trip, and — above the wire layer — the durable orchestration and resilience primitives a single agent or a whole swarm needs to actually run in production.
 
-Every number in this README is a real, reproducible measurement — see [Benchmarks](#benchmarks) for how each one was produced.
+Every number in this README is a reproducible measurement — see [Benchmarks](#benchmarks).
 
 ---
 
