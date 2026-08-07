@@ -1,8 +1,19 @@
-# Nexus Exchange Protocol (NXP) Python SDK
+<p align="center">
+  <img src="assets/nxp_intro.png" alt="Nexus Exchange Protocol Logo" width="280"/>
+</p>
 
-[![PyPI Version](https://img.shields.io/pypi/v/nxp.svg)](https://pypi.org/project/nxp/)
-[![License: PolyForm Noncommercial 1.0.0](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0)
-[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/)
+<h1 align="center">Nexus Exchange Protocol (NXP)</h1>
+
+<p align="center">
+  <em>"The harmony of a swarm is not in the strength of its individual nodes, but in the swiftness of their exchange."</em>
+</p>
+
+<p align="center">
+  <a href="https://pypi.org/project/nxp/"><img src="https://img.shields.io/pypi/v/nxp.svg" alt="PyPI Version"/></a>
+  <a href="https://pypi.org/project/nxp/"><img src="https://img.shields.io/pypi/dm/nxp.svg" alt="PyPI Downloads"/></a>
+  <a href="https://polyformproject.org/licenses/noncommercial/1.0.0"><img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg" alt="License"/></a>
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python Version"/></a>
+</p>
 
 **Nexus Exchange Protocol (NXP)** is a low-overhead, zero-trust protocol and framework for autonomous agent swarms — the layer that lets specialized agents talk to each other and execute reliably without legacy web-protocol overhead getting in the way.
 
