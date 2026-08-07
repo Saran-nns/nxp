@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/nxp_intro.png" alt="Nexus Exchange Protocol Logo" width="280"/>
+  <img src="assets/nxp_logo.png" alt="Nexus Exchange Protocol Logo" width="480"/>
 </p>
 
 <h1 align="center">Nexus Exchange Protocol (NXP)</h1>
