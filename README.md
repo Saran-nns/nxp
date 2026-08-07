@@ -9,8 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://pypi.org/project/nexes/"><img src="https://img.shields.io/pypi/v/nexes.svg" alt="PyPI Version"/></a>
-  <a href="https://pypi.org/project/nexes/"><img src="https://img.shields.io/pypi/dm/nexes.svg" alt="PyPI Downloads"/></a>
+  <a href="https://github.com/Saran-nns/nxp"><img src="https://img.shields.io/badge/pypi-coming_soon-blue.svg" alt="PyPI Status"/></a>
   <a href="https://polyformproject.org/licenses/noncommercial/1.0.0"><img src="https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg" alt="License"/></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-blue" alt="Python Version"/></a>
 </p>
@@ -44,15 +43,27 @@ Traditional agent frameworks rely on legacy REST or JSON-RPC protocols where eve
 
 ## Installation
 
+Currently, NXP (`nexes`) is installed locally from the repository source:
+
+### 1. Install from GitHub
+
 ```bash
-pip install nexes
+pip install git+https://github.com/Saran-nns/nxp.git
+```
+
+### 2. Local Editable Installation
+
+```bash
+git clone https://github.com/Saran-nns/nxp.git
+cd nxp
+pip install -e .
 ```
 
 Optional transports and features are extras:
 
 ```bash
-pip install "nexes[grpc]"   # gRPC transport
-pip install "nexes[all]"    # everything
+pip install -e ".[grpc]"   # gRPC transport
+pip install -e ".[all]"    # everything
 ```
 
 Base install only requires `fastapi`, `uvicorn`, `httpx`, `pydantic`, `anyio`, `typer`, `rich`, `websockets`, `msgpack`, and `cryptography` — `import nxp` does not require any of the extras. HMAC bearer API-key auth (`nxp.security.auth`) works out of the box; it does not need the `auth` extra, which currently declares dependencies the implementation doesn't use.
