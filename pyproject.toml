@@ -97,16 +97,14 @@ Repository = "https://github.com/Saran-nns/nxp"
 "Bug Tracker" = "https://github.com/Saran-nns/nxp/issues"
 
 [tool.hatch.build.targets.wheel]
-sources = ["src"]
-packages = ["src/nxp"]
+packages = ["nxp"]
 
 [tool.hatch.build.targets.sdist]
-# No VCS to infer exclusions from (this checkout isn't a git repo), so hatchling's
-# default sdist would otherwise ship the whole working tree — the LaTeX book build
-# (PDFs, .aux/.log byproducts, timestamped backups), tutorial notebook/HTML/PDF, and
-# benchmark reports. Scope it to what's actually needed to build and test the package.
+# Explicit scope so the sdist only ships what's needed to build and test the
+# package, rather than hatchling's VCS-based default (which would also pick up
+# things like .pytest_cache or any stray local files git hasn't ignored).
 include = [
-  "/src",
+  "/nxp",
   "/tests",
   "/README.md",
   "/LICENSE",
